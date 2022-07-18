@@ -26,10 +26,14 @@ func main() {
 	// create a DB repository
 
 	// create and size a fyne window
-	win := exchange.NewWindow("exchangeME!")
-	win.CenterOnScreen()
-	win.Resize(fyne.Size{Width: 800, Height: 500})
+	exchangeApp.MainWindow = exchange.NewWindow("exchangeME!")
+	exchangeApp.MainWindow.Resize(fyne.Size{Width: 800, Height: 500})
+	exchangeApp.MainWindow.SetFixedSize(true)
+	exchangeApp.MainWindow.SetMaster()
+	exchangeApp.MainWindow.CenterOnScreen()
+
+	exchangeApp.makeUI()
 
 	// show and run app
-	win.ShowAndRun()
+	exchangeApp.MainWindow.ShowAndRun()
 }
