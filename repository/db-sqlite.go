@@ -1,6 +1,9 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
 
 type SQLiteRepository struct {
 	Conn *sql.DB
@@ -40,4 +43,33 @@ func (repo *SQLiteRepository) InsertHolding(h Holdings) (*Holdings, error) {
 	h.ID = id
 
 	return &h, nil
+}
+
+func (repo *SQLiteRepository) AllHoldings() ([]Holdings, error) {
+	query := "select id, amount, purchase_date, purchase_price from holdings order by purchase_date"
+	rows, err := repo.Conn.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var all []Holdings
+	for rows.Next() {
+		var h Holdings
+		var unixTime int64
+		err := rows.Scan(
+			&h.ID,
+			&h.Amount,
+			&unixTime,
+			&h.PurchasePrice,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		h.PurchaseDate = time.Unix(unixTime, 0)
+		all = append(all, h)
+	}
+
+	return all, nil
 }
