@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"fyne.io/fyne/v2"
@@ -16,6 +17,7 @@ func main() {
 	// create a fyne app
 	exchange := app.NewWithID("app.netlify.petrostrak.exchangeMe.preferences")
 	exchangeApp.App = exchange
+	exchangeApp.HTTPClient = &http.Client{}
 
 	// create loggers
 	exchangeApp.InfoLog = log.New(os.Stdout, "[INFO]\t", log.Ldate|log.Ltime)

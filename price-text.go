@@ -10,6 +10,7 @@ import (
 
 func (c *Config) getPriceText() (open, current, change *canvas.Text) {
 	var g Gold
+	g.Client = c.HTTPClient
 
 	gold, err := g.GetPrices()
 	if err != nil {
