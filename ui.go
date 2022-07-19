@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -32,9 +34,16 @@ func (c *Config) makeUI() {
 	finalContent := container.NewVBox(priceContent, toolbar, tabs)
 
 	c.MainWindow.SetContent(finalContent)
+
+	go func() {
+		for range time.Tick(time.Second * 30) {
+			c.refreshPriceContent()
+		}
+	}()
 }
 
 func (c *Config) refreshPriceContent() {
+	c.InfoLog.Println("refreshing prices")
 	open, current, change := c.getPriceText()
 	c.PriceContainer.Objects = []fyne.CanvasObject{open, current, change}
 	c.PriceContainer.Refresh()
