@@ -25,6 +25,8 @@ func (c *Config) getChart() *canvas.Image {
 	err := c.downloadFile(apiURL, "gold.png")
 	if err != nil {
 		// user bundled image
+		// generated with `fyne bundle unreachable.png >> bundled.go`
+		img = canvas.NewImageFromResource(resourceUnreachablePng)
 	} else {
 		img = canvas.NewImageFromFile("gold.png")
 	}
