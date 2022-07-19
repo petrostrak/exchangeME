@@ -130,7 +130,7 @@ func (repo *SQLiteRepository) DeleteHolding(id int64) error {
 	}
 
 	if rowsAffected == 0 {
-		return errUpdateFailed
+		return errDeleteFailed
 	}
 
 	return nil
