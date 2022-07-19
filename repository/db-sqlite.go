@@ -94,3 +94,26 @@ func (repo *SQLiteRepository) GetHoldingByID(id int) (*Holdings, error) {
 
 	return &h, nil
 }
+
+func (repo *SQLiteRepository) UpdateHolding(id int64, updated Holdings) error {
+	if id == 0 {
+		return errUpdateFailed
+	}
+
+	stmt := "update holdings set amount = ?, purchase_date = ?, purchase_price = ? where id = ?"
+	res, err := repo.Conn.Exec(stmt, updated.Amount, updated.PurchaseDate.Unix(), updated.PurchasePrice, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return errUpdateFailed
+	}
+
+	return nil
+}
