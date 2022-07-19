@@ -8,6 +8,7 @@ import (
 	"image/png"
 	"io"
 	"os"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -18,7 +19,21 @@ func (c *Config) pricesTab() *fyne.Container {
 }
 
 func (c *Config) getChart() *canvas.Image {
-	return nil
+	apiURL := fmt.Sprintf("https://goldprice.org/charts/gold_3d_b_o_%s_x.png", strings.ToLower(currency))
+	var img *canvas.Image
+
+	err := c.downloadFile(apiURL, "gold.png")
+	if err != nil {
+		// user bundled image
+	} else {
+		img = canvas.NewImageFromFile("gold.png")
+	}
+
+	img.SetMinSize(fyne.Size{Width: 770, Height: 410})
+
+	img.FillMode = canvas.ImageFillOriginal
+
+	return img
 }
 
 func (c *Config) downloadFile(URL, filename string) error {
