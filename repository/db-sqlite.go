@@ -117,3 +117,21 @@ func (repo *SQLiteRepository) UpdateHolding(id int64, updated Holdings) error {
 
 	return nil
 }
+
+func (repo *SQLiteRepository) DeleteHolding(id int64) error {
+	res, err := repo.Conn.Exec("delete from holdings where id = ?", id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return errUpdateFailed
+	}
+
+	return nil
+}
