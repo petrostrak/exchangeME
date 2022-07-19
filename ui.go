@@ -8,6 +8,10 @@ func (c *Config) makeUI() {
 
 	// put price info into a container
 	priceContent := container.NewGridWithColumns(3, openPrice, currentPrice, priceChange)
+	c.PriceContainer = priceContent
 
 	// add container to window
+	finalContent := container.NewVBox(priceChange)
+
+	c.MainWindow.SetContent(finalContent)
 }
