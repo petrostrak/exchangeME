@@ -12,10 +12,15 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 )
 
 func (c *Config) pricesTab() *fyne.Container {
-	return nil
+	chart := c.getChart()
+	chartContainer := container.NewVBox(chart)
+	c.PriceContainer = chartContainer
+
+	return chartContainer
 }
 
 func (c *Config) getChart() *canvas.Image {
