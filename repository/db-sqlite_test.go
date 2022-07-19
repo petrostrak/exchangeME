@@ -71,3 +71,18 @@ func TestSQLiteRepository_UpdateHolding(t *testing.T) {
 		t.Error("updated failed:", err)
 	}
 }
+
+func TestSQLiteRepository_DeleteHolding(t *testing.T) {
+	err := testRepo.DeleteHolding(1)
+	if err != nil {
+		t.Error("failed to delete holding:", err)
+		if err != errDeleteFailed {
+			t.Error("wrong error returned")
+		}
+	}
+
+	err = testRepo.DeleteHolding(2)
+	if err == nil {
+		t.Error("no error when trying to delete non-existent record:")
+	}
+}
