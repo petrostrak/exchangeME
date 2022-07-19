@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
-func (c *Config) getToolBar(win fyne.Window) (toolbar *widget.Toolbar) {
+func (c *Config) getToolBar() (toolbar *widget.Toolbar) {
 	toolbar = widget.NewToolbar(
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(theme.DocumentCreateIcon(), func() {}),
