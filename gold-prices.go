@@ -40,7 +40,7 @@ func (g *Gold) GetPrices() (*Price, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Println("error contacting goldprice.org")
+		log.Println("error contacting goldprice.org", err)
 		return nil, err
 	}
 	defer resp.Body.Close()

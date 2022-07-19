@@ -18,7 +18,7 @@ import (
 func (c *Config) pricesTab() *fyne.Container {
 	chart := c.getChart()
 	chartContainer := container.NewVBox(chart)
-	c.PriceContainer = chartContainer
+	c.PriceChartContainer = chartContainer
 
 	return chartContainer
 }
@@ -29,7 +29,7 @@ func (c *Config) getChart() *canvas.Image {
 
 	err := c.downloadFile(apiURL, "gold.png")
 	if err != nil {
-		// user bundled image
+		// use bundled image
 		// generated with `fyne bundle unreachable.png >> bundled.go`
 		img = canvas.NewImageFromResource(resourceUnreachablePng)
 	} else {
@@ -44,7 +44,7 @@ func (c *Config) getChart() *canvas.Image {
 }
 
 func (c *Config) downloadFile(URL, filename string) error {
-	// get the response bytes from calling a url
+	// get the resp bytes from calling a url
 	resp, err := c.HTTPClient.Get(URL)
 	if err != nil {
 		return err
