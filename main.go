@@ -29,7 +29,7 @@ func main() {
 
 	// create and size a fyne window
 	exchangeApp.MainWindow = exchange.NewWindow("exchangeME!")
-	exchangeApp.MainWindow.Resize(fyne.Size{Width: 800, Height: 500})
+	exchangeApp.MainWindow.Resize(fyne.NewSize(770, 410))
 	exchangeApp.MainWindow.SetFixedSize(true)
 	exchangeApp.MainWindow.SetMaster()
 	exchangeApp.MainWindow.CenterOnScreen()
