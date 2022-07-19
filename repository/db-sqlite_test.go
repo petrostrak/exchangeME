@@ -57,3 +57,17 @@ func TestSQLiteRepository_GetHoldingByID(t *testing.T) {
 		t.Error("get one returned value from non-existent id")
 	}
 }
+
+func TestSQLiteRepository_UpdateHolding(t *testing.T) {
+	h, err := testRepo.GetHoldingByID(1)
+	if err != nil {
+		t.Error(err)
+	}
+
+	h.PurchasePrice = 1500
+
+	err = testRepo.UpdateHolding(1, *h)
+	if err != nil {
+		t.Error("updated failed:", err)
+	}
+}
