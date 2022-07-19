@@ -29,7 +29,7 @@ func (c *Config) makeUI() {
 	tabs.SetTabLocation(container.TabLocationTop)
 
 	// add container to window
-	finalContent := container.NewVBox(priceChange, toolbar, tabs)
+	finalContent := container.NewVBox(priceContent, toolbar, tabs)
 
 	c.MainWindow.SetContent(finalContent)
 }
