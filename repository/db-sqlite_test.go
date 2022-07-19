@@ -41,3 +41,19 @@ func TestSQLiteRepository_AllHoldings(t *testing.T) {
 		t.Errorf("wrong number of rows returned; expected 1, but got %d:", len(h))
 	}
 }
+
+func TestSQLiteRepository_GetHoldingByID(t *testing.T) {
+	h, err := testRepo.GetHoldingByID(1)
+	if err != nil {
+		t.Error("get by id failed:", err)
+	}
+
+	if h.PurchasePrice != 1000 {
+		t.Errorf("wrong purchase price returned; expected 1000 but got %d", h.PurchasePrice)
+	}
+
+	_, err = testRepo.GetHoldingByID(2)
+	if err == nil {
+		t.Error("get one returned value from non-existent id")
+	}
+}
