@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"fyne.io/fyne/v2/test"
+	"github.com/petrostrak/exchangeME/repository"
 )
 
 var testApp Config
@@ -15,7 +16,9 @@ var testApp Config
 func TestMain(m *testing.M) {
 	a := test.NewApp()
 	testApp.App = a
+	testApp.MainWindow = a.NewWindow("")
 	testApp.HTTPClient = client
+	testApp.DB = repository.NewTestRepository()
 	os.Exit(m.Run())
 }
 
