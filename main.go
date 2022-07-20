@@ -9,11 +9,9 @@ import (
 	"fyne.io/fyne/v2/app"
 )
 
-var (
-	exchangeApp Config
-)
-
 func main() {
+	var exchangeApp Config
+
 	// create a fyne app
 	exchange := app.NewWithID("app.netlify.petrostrak.exchangeMe.preferences")
 	exchangeApp.App = exchange
@@ -24,8 +22,13 @@ func main() {
 	exchangeApp.ErrorLog = log.New(os.Stdout, "[ERROR]\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	// open connection to DB
+	sqlDB, err := exchangeApp.connectToSLQ()
+	if err != nil {
+		log.Panic(err)
+	}
 
 	// create a DB repository
+	exchangeApp.setupDB(sqlDB)
 
 	// create and size a fyne window
 	exchangeApp.MainWindow = exchange.NewWindow("exchangeME!")

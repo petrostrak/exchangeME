@@ -13,7 +13,7 @@ func NewSQLiteRepository(db *sql.DB) *SQLiteRepository {
 	return &SQLiteRepository{Conn: db}
 }
 
-func (repo *SQLiteRepository) Mirate() error {
+func (repo *SQLiteRepository) Migrate() error {
 	query := `
 	create table if not exists holdings(
 		id integer primary key autoincrement,
