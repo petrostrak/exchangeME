@@ -40,7 +40,8 @@ func (c *Config) getHoldingsTable() *widget.Table {
 							c.ErrorLog.Println(err)
 						}
 
-						// TODO: refresh the holdings table
+						// refresh the holdings table
+						c.refreshHoldingsTable()
 					}, c.MainWindow)
 				})
 				w.Importance = widget.HighImportance
