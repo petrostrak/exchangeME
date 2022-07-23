@@ -15,7 +15,9 @@ import (
 func (c *Config) holdingsTab() *fyne.Container {
 	c.HoldingsTable = c.getHoldingsTable()
 
-	return nil
+	holdingsContainer := container.NewVBox(c.HoldingsTable)
+
+	return holdingsContainer
 }
 
 func (c *Config) getHoldingsTable() *widget.Table {

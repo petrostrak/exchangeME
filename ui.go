@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 )
@@ -22,11 +21,12 @@ func (c *Config) makeUI() {
 	c.ToolBar = toolbar
 
 	priceTabContent := c.pricesTab()
+	holdingstabContent := c.holdingsTab()
 
 	// get app tabs
 	tabs := container.NewAppTabs(
 		container.NewTabItemWithIcon("Prices", theme.HomeIcon(), priceTabContent),
-		container.NewTabItemWithIcon("Holdings", theme.InfoIcon(), canvas.NewText("holdings content goes here", nil)),
+		container.NewTabItemWithIcon("Holdings", theme.InfoIcon(), holdingstabContent),
 	)
 	tabs.SetTabLocation(container.TabLocationTop)
 
