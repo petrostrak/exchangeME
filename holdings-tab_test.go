@@ -12,3 +12,11 @@ func TestConfig_getHoldings(t *testing.T) {
 		t.Error("wrong number of rows returned:", len(all))
 	}
 }
+
+func TestConfig_getHoldingSlice(t *testing.T) {
+	slice := testApp.getHoldingSlice()
+
+	if len(slice) != 3 {
+		t.Error("wrong number of rows returned:", len(slice))
+	}
+}
