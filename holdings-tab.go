@@ -15,7 +15,13 @@ import (
 func (c *Config) holdingsTab() *fyne.Container {
 	c.HoldingsTable = c.getHoldingsTable()
 
-	holdingsContainer := container.NewVBox(c.HoldingsTable)
+	holdingsContainer := container.NewBorder(
+		nil,
+		nil,
+		nil,
+		nil,
+		container.NewAdaptiveGrid(1, c.HoldingsTable),
+	)
 
 	return holdingsContainer
 }
@@ -80,7 +86,7 @@ func (c *Config) getHoldingSlice() [][]any {
 
 		currentRow = append(currentRow, strconv.FormatInt(x.ID, 10))
 		currentRow = append(currentRow, fmt.Sprintf("%d toz", x.Amount))
-		currentRow = append(currentRow, fmt.Sprintf("$%2f", float32(x.PurchasePrice/100)))
+		currentRow = append(currentRow, fmt.Sprintf("$%.2f", float32(x.PurchasePrice/100)))
 		currentRow = append(currentRow, x.PurchaseDate.Format("2006-01-02"))
 		currentRow = append(currentRow, widget.NewButton("Delete", func() {}))
 
