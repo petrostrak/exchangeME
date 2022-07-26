@@ -13,6 +13,7 @@ import (
 )
 
 func (c *Config) holdingsTab() *fyne.Container {
+	c.Holdings = c.getHoldingSlice()
 	c.HoldingsTable = c.getHoldingsTable()
 
 	holdingsContainer := container.NewBorder(
@@ -27,25 +28,24 @@ func (c *Config) holdingsTab() *fyne.Container {
 }
 
 func (c *Config) getHoldingsTable() *widget.Table {
-	data := c.getHoldingSlice()
-	c.Holdings = data
-
 	t := widget.NewTable(
 		func() (int, int) {
-			return len(data), len(data[0])
+			return len(c.Holdings), len(c.Holdings[0])
 		},
 		func() fyne.CanvasObject {
 			return container.NewVBox(widget.NewLabel(""))
 		},
 		func(i widget.TableCellID, o fyne.CanvasObject) {
-			if i.Col == len(data[0])-1 && i.Row != 0 {
+			if i.Col == len(c.Holdings[0])-1 && i.Row != 0 {
 				// last cell in row, put a button
 				w := widget.NewButtonWithIcon("Delete", theme.DeleteIcon(), func() {
 					dialog.ShowConfirm("Delete?", "", func(deleted bool) {
-						id, _ := strconv.Atoi(data[i.Row][0].(string))
-						err := c.DB.DeleteHolding(int64(id))
-						if err != nil {
-							c.ErrorLog.Println(err)
+						if deleted {
+							id, _ := strconv.Atoi(c.Holdings[i.Row][0].(string))
+							err := c.DB.DeleteHolding(int64(id))
+							if err != nil {
+								c.ErrorLog.Println(err)
+							}
 						}
 
 						// refresh the holdings table
@@ -58,7 +58,7 @@ func (c *Config) getHoldingsTable() *widget.Table {
 			} else {
 				// we are putting textual information
 				o.(*fyne.Container).Objects = []fyne.CanvasObject{
-					widget.NewLabel(data[i.Row][i.Col].(string)),
+					widget.NewLabel(c.Holdings[i.Row][i.Col].(string)),
 				}
 			}
 		})
