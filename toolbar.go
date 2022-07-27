@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
@@ -20,10 +21,36 @@ func (c *Config) getToolBar() (toolbar *widget.Toolbar) {
 		widget.NewToolbarAction(theme.ViewRefreshIcon(), func() {
 			c.refreshPriceContent()
 		}),
-		widget.NewToolbarAction(theme.SettingsIcon(), func() {}),
+		widget.NewToolbarAction(theme.SettingsIcon(), func() {
+			w := c.showPreferences()
+			w.Resize(fyne.NewSize(300, 200))
+			w.Show()
+		}),
 	)
 
 	return
+}
+
+func (c *Config) showPreferences() fyne.Window {
+	win := c.App.NewWindow("Preferences")
+
+	lbl := widget.NewLabel("Preferred Currency")
+	cur := widget.NewSelect([]string{"EUR", "GBP", "JPY", "USD"}, func(value string) {
+		currency = value
+
+		c.App.Preferences().SetString("currency", value)
+	})
+	cur.Selected = currency
+
+	btn := widget.NewButton("Save", func() {
+		win.Close()
+		c.refreshPriceContent()
+	})
+	btn.Importance = widget.HighImportance
+
+	win.SetContent(container.NewVBox(lbl, cur, btn))
+
+	return win
 }
 
 func (c *Config) addHoldingsDialog() dialog.Dialog {
