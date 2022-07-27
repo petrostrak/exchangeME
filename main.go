@@ -30,6 +30,8 @@ func main() {
 	// create a DB repository
 	exchangeApp.setupDB(sqlDB)
 
+	currency = exchange.Preferences().StringWithFallback("currency", "JPY")
+
 	// create and size a fyne window
 	exchangeApp.MainWindow = exchange.NewWindow("exchangeME!")
 	exchangeApp.MainWindow.Resize(fyne.NewSize(770, 410))
