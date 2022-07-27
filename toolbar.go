@@ -79,6 +79,7 @@ func (c *Config) addHoldingsDialog() dialog.Dialog {
 				amount, _ := strconv.Atoi(addAmountEntry.Text)
 				purchaseDate, _ := time.Parse("2006-01-02", purchaseDateEntry.Text)
 				purchasePrice, _ := strconv.ParseFloat(purchasePriceEntry.Text, 32)
+				purchasePrice = purchasePrice * 100
 
 				_, err := c.DB.InsertHolding(repository.Holdings{
 					Amount:        amount,
