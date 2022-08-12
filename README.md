@@ -3,7 +3,7 @@ ExchangeMe is an application that allows users to track (fictional) Gold investm
 
 
 ##### An illustration of v1.0.0
-![alt text](https://github.com/petrostrak/task-me/blob/main/exchangeME.png)
+![alt text](https://github.com/petrostrak/exchangeME-me/blob/main/exchangeME.png)
 
 
 ##### To build exchangeME from source
